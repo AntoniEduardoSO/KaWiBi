@@ -1,0 +1,11 @@
+D:\Dev\KaWiBi\KaWiBi.Core\bin\Debug\net8.0\KaWiBi.Core.deps.json
+D:\Dev\KaWiBi\KaWiBi.Core\bin\Debug\net8.0\KaWiBi.Core.dll
+D:\Dev\KaWiBi\KaWiBi.Core\bin\Debug\net8.0\KaWiBi.Core.pdb
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\KaWiBi.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\KaWiBi.Core.AssemblyInfoInputs.cache
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\KaWiBi.Core.AssemblyInfo.cs
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\KaWiBi.Core.csproj.CoreCompileInputs.cache
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\KaWiBi.Core.dll
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\refint\KaWiBi.Core.dll
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\KaWiBi.Core.pdb
+D:\Dev\KaWiBi\KaWiBi.Core\obj\Debug\net8.0\ref\KaWiBi.Core.dll

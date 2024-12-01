@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GsMEOWzUk917ZhXFh1wlX+hJFia36KQsEiXSPzjiErg=",
+  "Source": "KaWiBi.Api",
+  "BasePath": "_content/KaWiBi.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
