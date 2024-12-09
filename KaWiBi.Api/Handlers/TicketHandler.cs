@@ -17,8 +17,16 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
                 UserId = request.UserId,
                 Description = request.Description,
                 Title = request.Title,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                DepartmentOwner = request.DepartmentOwner,
+                DepartmentToExecute = request.DepartmentToExecute,
+                Owner = request.Owner,
+                Executer = request.Executer,
+                AssetId = request.AssetId ?? null,
             };
+
+            ticket.EstimatedTimeToFinish = await GetEstimatedFinishTimeAsync(ticket);
+
 
             await context.Tickets.AddAsync(ticket);
             await context.SaveChangesAsync();
@@ -62,7 +70,7 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
             var query = context
                 .Tickets
                 .AsNoTracking()
-                .OrderByDescending(x => x.UpdatedAt ?? x.CreatedAt);
+                .OrderByDescending(x => x.UpdatedAt);
 
             var tickets = await query
                 .Skip((request.PageNumber - 1) * request.PageSize)
@@ -112,6 +120,20 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
         }
     }
 
+    public async Task<DateTime> GetEstimatedFinishTimeAsync(Ticket ticket)
+    {
+        var completedTickets = await context.Tickets
+            .Where(t => t.FinishedAt !=null)
+            .ToListAsync();
+
+        if(completedTickets.Count == 0)
+            return ticket.CreatedAt.AddHours(3);
+
+        var averageTime = completedTickets.Average(t => (t.FinishedAt!.Value - t.CreatedAt).TotalHours);
+
+        return ticket.CreatedAt.AddHours(averageTime);
+    }
+
     public async Task<Response<Ticket>> UpdateAsync(UpdateTicketRequest request)
     {
         try
@@ -128,6 +150,11 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
             ticket.Title = request.Title;
             ticket.Description = request.Description;
             ticket.UpdatedAt = DateTime.Now;
+            ticket.AssetId = request.AssetId ?? null;
+            ticket.DepartmentOwner = request.DepartmentOwner;
+            ticket.DepartmentToExecute = request.DepartmentToExecute;
+            ticket.Owner = request.Owner;
+            ticket.Executer = request.Executer;
 
             context.Tickets.Update(ticket);
             await context.SaveChangesAsync();

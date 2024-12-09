@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using KaWiBi.Api.Common.Api;
 using KaWiBi.Core.Handlers;
+using KaWiBi.Core.Models;
 using KaWiBi.Core.Requests.Notes;
+using KaWiBi.Core.Responses;
 
 namespace KaWiBi.Api.Common.Endpoints.Notes;
 public class GetAllNoteByTicketEndpoint : IEndpoint
@@ -11,7 +13,8 @@ public class GetAllNoteByTicketEndpoint : IEndpoint
     .WithName("Notes: Get All By Ticket")
     .WithSummary("Recupera todos os comentarios do Ticket")
     .WithDescription("Recupera todos os comentarios do Ticket")
-    .WithOrder(5);
+    .WithOrder(5)
+    .Produces<Response<Note>>();
 
     private static async Task<IResult> HandleAsync(
         ClaimsPrincipal user,

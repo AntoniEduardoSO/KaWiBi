@@ -20,4 +20,5 @@ app.UseCors(ApiConfiguration.CorsPolicyName);
 app.UseSecurity();
 app.MapEndpoints();
 
+
 app.Run();

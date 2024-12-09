@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using KaWiBi.Api.Common.Api;
 using KaWiBi.Core.Handlers;
+using KaWiBi.Core.Models;
 using KaWiBi.Core.Requests.Notes;
+using KaWiBi.Core.Responses;
 
 namespace KaWiBi.Api.Common.Endpoints.Notes;
 public class GetNoteByIdEndpoint : IEndpoint
@@ -11,7 +13,8 @@ public class GetNoteByIdEndpoint : IEndpoint
     .WithName("Notes: Get By Id")
     .WithSummary("Recupera um comentario no Ticket")
     .WithDescription("Recupera um comentario no Ticket")
-    .WithOrder(4);
+    .WithOrder(4)
+    .Produces<Response<Note?>>();
 
 
     private static async Task<IResult> HandleAsync(

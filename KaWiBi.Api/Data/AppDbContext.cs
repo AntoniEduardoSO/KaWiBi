@@ -19,6 +19,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Note> Notes { get; set; } = null!;
     public DbSet<Ticket> Tickets { get; set; } = null!;
 
+    public DbSet<Department> Departments { get; set; } = null!;
+    public DbSet<Asset> Assets { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

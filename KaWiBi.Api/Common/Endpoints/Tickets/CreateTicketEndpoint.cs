@@ -22,6 +22,8 @@ public class CreateTicketEndpoint : IEndpoint
         CreateTicketRequest request)
     {
         request.UserId = user.Identity?.Name ?? string.Empty;
+        request.Owner = user.Identity?.Name ?? string.Empty;
+        request.Executer = user.Identity?.Name ?? string.Empty;
         var result = await handler.CreateAsync(request);
 
         return result.IsSuccess 

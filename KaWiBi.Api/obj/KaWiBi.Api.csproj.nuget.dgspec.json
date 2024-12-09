@@ -65,6 +65,10 @@
               "target": "Package",
               "version": "[8.0.5, )"
             },
+            "Microsoft.ML": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
             "SwashBuckle.AspNetCore": {
               "target": "Package",
               "version": "[7.0.0, )"

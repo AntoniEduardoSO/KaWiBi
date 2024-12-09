@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using KaWiBi.Api.Common.Api;
 using KaWiBi.Core.Handlers;
+using KaWiBi.Core.Models;
 using KaWiBi.Core.Requests.Notes;
+using KaWiBi.Core.Responses;
 
 namespace KaWiBi.Api.Common.Endpoints.Notes;
 public class CreateNoteEndpoint : IEndpoint
@@ -11,7 +13,8 @@ public class CreateNoteEndpoint : IEndpoint
     .WithName("Notes: Create")
     .WithSummary("Cria um novo comentario no Ticket")
     .WithDescription("Cria um novo comentario no Ticket")
-    .WithOrder(1);
+    .WithOrder(1)
+    .Produces<Response<Note?>>();
 
     private static async Task<IResult> HandleAsync(
         ClaimsPrincipal user,

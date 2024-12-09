@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using KaWiBi.Api.Common.Api;
 using KaWiBi.Core.Handlers;
+using KaWiBi.Core.Models;
 using KaWiBi.Core.Requests.Notes;
+using KaWiBi.Core.Responses;
 
 namespace KaWiBi.Api.Common.Endpoints.Notes;
 public class DeleteNoteEndpoint : IEndpoint
@@ -11,7 +13,8 @@ public class DeleteNoteEndpoint : IEndpoint
     .WithName("Notes: Delete")
     .WithSummary("Deleta um comentario no Ticket")
     .WithDescription("Deleta um comentario no Ticket")
-    .WithOrder(3);
+    .WithOrder(3)
+    .Produces<Response<Note?>>();
 
 
     private static async Task<IResult> HandleAsync(

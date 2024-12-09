@@ -1,4 +1,6 @@
 using KaWiBi.Api.Common.Api;
+using KaWiBi.Api.Common.Endpoints.Assets;
+using KaWiBi.Api.Common.Endpoints.Departments;
 using KaWiBi.Api.Common.Endpoints.Identity;
 using KaWiBi.Api.Common.Endpoints.Notes;
 using KaWiBi.Api.Common.Endpoints.Tickets;
@@ -41,7 +43,26 @@ public static class Endpoints
         endpoints.MapGroup("v1/identity")
             .WithTags("Identity")
             .MapEndpoint<LogoutEndpoint>()
-            .MapEndpoint<GetRolesEndpoint>();
+            .MapEndpoint<GetRolesEndpoint>()
+            .MapEndpoint<RegisterEndpoint>();
+
+        endpoints.MapGroup("v1/department")
+            .WithTags("Department")
+            .MapEndpoint<CreateDepartmentEndpoint>()
+            .MapEndpoint<UpdateDepartmentEndpoint>()
+            .MapEndpoint<DeleteDepartmentEndpoint>()
+            .MapEndpoint<GetByIdDepartmentEndpoint>()
+            .MapEndpoint<GetAllDepartmentEndpoint>()
+            .MapEndpoint<GetAllAssetByDepartmentEndpoint>();
+
+        endpoints.MapGroup("v1/asset")
+            .WithTags("Asset")
+            .MapEndpoint<CreateAssetEndpoint>()
+            .MapEndpoint<UpdateAssetEndpoint>()
+            .MapEndpoint<DeleteAssetEndpoint>()
+            .MapEndpoint<GetByIdAssetEndpoint>()
+            .MapEndpoint<GetAllAssetEndpoint>();
+
     }
 
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)

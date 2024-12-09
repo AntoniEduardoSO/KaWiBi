@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KaWiBi.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26858f804c400cf624cd473ea1b09e16439c5144")]
 [assembly: System.Reflection.AssemblyProductAttribute("KaWiBi.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KaWiBi.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

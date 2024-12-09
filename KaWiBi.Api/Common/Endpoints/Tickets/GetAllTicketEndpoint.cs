@@ -16,7 +16,7 @@ public class GetAllTicketEndpoint : IEndpoint
     .WithSummary("Recupera todos os Ticket")
     .WithDescription("Recupera todos os Tickets")
     .WithOrder(5)
-    .Produces<Response<Ticket?>>();
+    .Produces<PagedResponse<TicketDto?>>();
 
 
     private static async Task<IResult> HandleAsync(

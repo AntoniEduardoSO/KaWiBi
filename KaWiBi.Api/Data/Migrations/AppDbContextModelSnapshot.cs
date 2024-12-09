@@ -37,12 +37,23 @@ namespace KaWiBi.Api.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Email")
                         .HasMaxLength(180)
                         .HasColumnType("nvarchar(180)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -68,8 +79,16 @@ namespace KaWiBi.Api.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Post")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("NVARCHAR");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -89,6 +108,84 @@ namespace KaWiBi.Api.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("IdentityUser", (string)null);
+                });
+
+            modelBuilder.Entity("KaWiBi.Core.Models.Asset", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("IpAddress")
+                        .HasColumnType("VARBINARY(16)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<string>("Pattern")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<string>("Stamp")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("NVARCHAR");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Asset", (string)null);
+                });
+
+            modelBuilder.Entity("KaWiBi.Core.Models.Department", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<decimal?>("Lat")
+                        .HasColumnType("DECIMAL(9,6)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<decimal?>("Lon")
+                        .HasColumnType("DECIMAL(9,6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("NVARCHAR");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Department", (string)null);
                 });
 
             modelBuilder.Entity("KaWiBi.Core.Models.Note", b =>
@@ -133,10 +230,35 @@ namespace KaWiBi.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AssetId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("DepartmentOwner")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DepartmentToExecute")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<DateTime>("EstimatedTimeToFinish")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Executer")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Owner")
                         .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("NVARCHAR");
@@ -149,7 +271,7 @@ namespace KaWiBi.Api.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("NVARCHAR");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -304,6 +426,17 @@ namespace KaWiBi.Api.Migrations
                     b.ToTable("IdentityUserToken", (string)null);
                 });
 
+            modelBuilder.Entity("KaWiBi.Core.Models.Asset", b =>
+                {
+                    b.HasOne("KaWiBi.Core.Models.Department", "Department")
+                        .WithMany("Assets")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("KaWiBi.Core.Models.Note", b =>
                 {
                     b.HasOne("KaWiBi.Core.Models.Ticket", "Ticket")
@@ -361,6 +494,11 @@ namespace KaWiBi.Api.Migrations
             modelBuilder.Entity("KaWiBi.Api.Models.User", b =>
                 {
                     b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("KaWiBi.Core.Models.Department", b =>
+                {
+                    b.Navigation("Assets");
                 });
 
             modelBuilder.Entity("KaWiBi.Core.Models.Ticket", b =>

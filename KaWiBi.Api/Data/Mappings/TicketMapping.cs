@@ -32,13 +32,35 @@ public class TicketMapping : IEntityTypeConfiguration<Ticket>
 
         builder.Property(t => t.CreatedAt)
             .IsRequired();
-        
+
         builder.Property(t => t.UpdatedAt)
+            .IsRequired();
+
+        builder.Property(t => t.FinishedAt)
             .IsRequired(false);
 
         builder.HasMany(t => t.Notes)
             .WithOne(n => n.Ticket)
             .HasForeignKey(n => n.TicketId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Property(t => t.AssetId)
+            .IsRequired(false);
+
+        builder.Property(t => t.DepartmentOwner)
+            .IsRequired();
+        
+        builder.Property(t => t.DepartmentToExecute)
+            .IsRequired();
+        
+        builder.Property(t => t.Owner)
+            .IsRequired()
+            .HasColumnType("NVARCHAR")
+            .HasMaxLength(160);
+
+        builder.Property(t => t.Executer)
+            .IsRequired()
+            .HasColumnType("NVARCHAR")
+            .HasMaxLength(160);
     }
 }

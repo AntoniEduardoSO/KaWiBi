@@ -5,6 +5,7 @@ using KaWiBi.Core;
 using KaWiBi.Core.Handlers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace KaWiBi.Api.Common.Api;
 public static class BuilderExtension
@@ -81,5 +82,7 @@ public static class BuilderExtension
 
         builder.Services.AddTransient<INoteHandler, NoteHandler>();
         builder.Services.AddTransient<ITicketHandler, TicketHandler>();
+        builder.Services.AddTransient<IDepartmentHandler, DepartmentHandler>();
+        builder.Services.AddTransient<IAssetHandler, AssetHandler>();
     }
 }
