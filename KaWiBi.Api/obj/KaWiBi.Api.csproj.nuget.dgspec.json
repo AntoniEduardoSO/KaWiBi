@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\KaWiBi\\kawibi.api\\KaWiBi.Api.csproj": {}
+    "D:\\Dev\\KaWiBi\\KaWiBi.Api\\KaWiBi.Api.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\KaWiBi\\kawibi.api\\KaWiBi.Api.csproj": {
+    "D:\\Dev\\KaWiBi\\KaWiBi.Api\\KaWiBi.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\KaWiBi\\kawibi.api\\KaWiBi.Api.csproj",
+        "projectUniqueName": "D:\\Dev\\KaWiBi\\KaWiBi.Api\\KaWiBi.Api.csproj",
         "projectName": "KaWiBi.Api",
-        "projectPath": "D:\\Dev\\KaWiBi\\kawibi.api\\KaWiBi.Api.csproj",
+        "projectPath": "D:\\Dev\\KaWiBi\\KaWiBi.Api\\KaWiBi.Api.csproj",
         "packagesPath": "C:\\Users\\HailK\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\KaWiBi\\kawibi.api\\obj\\",
+        "outputPath": "D:\\Dev\\KaWiBi\\KaWiBi.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HailK\\AppData\\Roaming\\NuGet\\NuGet.Config"

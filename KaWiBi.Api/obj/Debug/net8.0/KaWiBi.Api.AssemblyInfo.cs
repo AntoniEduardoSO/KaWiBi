@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KaWiBi.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26858f804c400cf624cd473ea1b09e16439c5144")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56368a6bb5ca08ce0ca026f15843a7b81a72cee7")]
 [assembly: System.Reflection.AssemblyProductAttribute("KaWiBi.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KaWiBi.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

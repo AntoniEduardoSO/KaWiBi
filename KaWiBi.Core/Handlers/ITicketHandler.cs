@@ -11,6 +11,6 @@ public interface ITicketHandler
     Task<Response<Ticket>> DeleteAsync(DeleteTicketRequest request);
     Task<Response<Ticket>> GetByIdAsync(GetTicketByIdRequest request);
     Task<PagedResponse<List<TicketDto>>> GetAllAsync(GetAllTicketRequest request);
-
+    Task<PagedResponse<List<TicketDto>>> FilterAsync(TicketFilterRequest request);
     Task<DateTime> GetEstimatedFinishTimeAsync(Ticket ticket);
 }

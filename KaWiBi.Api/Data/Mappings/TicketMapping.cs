@@ -52,14 +52,8 @@ public class TicketMapping : IEntityTypeConfiguration<Ticket>
         
         builder.Property(t => t.DepartmentToExecute)
             .IsRequired();
-        
-        builder.Property(t => t.Owner)
-            .IsRequired()
-            .HasColumnType("NVARCHAR")
-            .HasMaxLength(160);
 
         builder.Property(t => t.Executer)
-            .IsRequired()
             .HasColumnType("NVARCHAR")
             .HasMaxLength(160);
     }

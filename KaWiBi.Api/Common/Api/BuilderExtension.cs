@@ -68,8 +68,8 @@ public static class BuilderExtension
                         Configuration.BackendUrl,
                         Configuration.FrontendUrl
                     )
-                    .AllowAnyMethod()
                     .AllowAnyHeader()
+                    .AllowAnyMethod()
                     .AllowCredentials();
             });
         });

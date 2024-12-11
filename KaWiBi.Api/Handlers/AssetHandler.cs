@@ -165,7 +165,6 @@ public class AssetHandler(AppDbContext context) : IAssetHandler
                 DepartmentId = asset.DepartmentId
             };
 
-
             return new Response<AssetResponse>(assetResponse);
 
         }

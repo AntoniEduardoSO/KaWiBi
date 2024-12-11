@@ -24,6 +24,7 @@ public static class Endpoints
             .MapEndpoint<CreateTicketEndpoint>()
             .MapEndpoint<UpdateTicketEndpoint>()
             .MapEndpoint<DeleteTicketEndpoint>()
+            .MapEndpoint<GetTicketByFilterEndpoint>()
             .MapEndpoint<GetByIdTicketEndpoint>()
             .MapEndpoint<GetAllTicketEndpoint>();
 

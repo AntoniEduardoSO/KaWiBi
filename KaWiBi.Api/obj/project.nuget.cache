@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "N+yOiVSCJ6X4B5S51YC3icPNCyYcYyeo72glS76cO0eQXcCNYusG4RLhq4voztxZCzfpeedke1kkyCYvLJYGcQ==",
+  "dgSpecHash": "qXe5FvQNi1OYgbUNpRVxKms47TUIHTQXCacTMocGHptH2ZzZsa1EWZy92ETLk5hKMAAnXPUqRla6cWtgbjIMZg==",
   "success": true,
-  "projectFilePath": "D:\\Dev\\KaWiBi\\kawibi.api\\KaWiBi.Api.csproj",
+  "projectFilePath": "D:\\Dev\\KaWiBi\\KaWiBi.Api\\KaWiBi.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HailK\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\HailK\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

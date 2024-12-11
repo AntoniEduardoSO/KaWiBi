@@ -9,7 +9,7 @@ namespace KaWiBi.Api.Common.Endpoints.Tickets;
 public class GetByIdTicketEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
-    => app.MapGet("/{id}", HandleAsync)
+    => app.MapGet("/{id:long}", HandleAsync)
     .WithName("Ticket: Get By Id")
     .WithSummary("Recupera um Ticket pelo Id")
     .WithDescription("Recupera um Ticket pelo Id")

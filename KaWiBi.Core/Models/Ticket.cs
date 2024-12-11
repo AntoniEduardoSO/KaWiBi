@@ -25,8 +25,7 @@ public class Ticket
     public long? AssetId { get; set; }
     public long DepartmentOwner { get; set; }
     public long DepartmentToExecute { get; set; }
-    public string Owner { get; set; } = string.Empty;
-    public string Executer { get; set; } = string.Empty;
+    public string? Executer { get; set; } = string.Empty;
 
     [NotMapped]
     public Asset? Asset { get; set; }

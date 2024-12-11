@@ -8,7 +8,7 @@ public class CreateTicketRequest : Request
     public string Description {get;set;} = string.Empty;
     public long? AssetId  { get; set; }
     public string Owner { get; set; } = string.Empty;
-    public string Executer { get; set; } = string.Empty;
+    public string? Executer { get; set; } = null;
     public long DepartmentOwner { get; set; } 
     public long DepartmentToExecute { get; set; }
 }

@@ -4,6 +4,7 @@ using KaWiBi.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KaWiBi.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241210135051_fix_ticket_nullreference")]
+    partial class fix_ticket_nullreference
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,7 +97,6 @@ namespace KaWiBi.Api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(180)
                         .HasColumnType("nvarchar(180)");
 
@@ -257,6 +259,11 @@ namespace KaWiBi.Api.Migrations
 
                     b.Property<DateTime?>("FinishedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<short>("Status")
                         .HasColumnType("SMALLINT");
