@@ -22,31 +22,26 @@ Siga as instruções abaixo dentro da pasta raiz do projeto (KaWiBi.Api):
 1. Aplicar as Migrations ao Banco de Dados:
 
 ```bash
-Copiar código
 dotnet ef database update
 ```
 2. Restaurar Todas as Dependências:
 
 ```bash
-Copiar código
 dotnet restore
 ```
 3. Limpar Caches e Arquivos Temporários:
 
 ```bash
-Copiar código
 dotnet clean
 ```
 4. Compilar o Projeto:
 
 ```bash
-Copiar código
 dotnet build
 ```
 5. Executar a Aplicação:
 
 ```bash
-Copiar código
 dotnet run
 ```
 Com a aplicação em execução, o back-end estará disponível, pronto para se comunicar com o front-end na porta 3000 e responder às requisições de criação e gerenciamento de tickets.
