@@ -1,7 +1,6 @@
 using KaWiBi.Api.Data;
 using KaWiBi.Core.Handlers;
 using KaWiBi.Core.Models;
-using KaWiBi.Core.Requests.Asset;
 using KaWiBi.Core.Requests.Tickets;
 using KaWiBi.Core.Responses;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,14 @@ using Microsoft.EntityFrameworkCore;
 namespace KaWiBi.Api.Handlers;
 public class TicketHandler(AppDbContext context) : ITicketHandler
 {
+    public async Task<string> FindDepartmentName(long id)
+    {
+        var department = await context.Departments.FirstOrDefaultAsync(x => x.Id == id);
+
+        return department is null
+            ? string.Empty
+            : department.Name;
+    }
     public async Task<string> AssignTicketAuthor(CreateTicketRequest request)
     {
         var userMain = await context
@@ -36,7 +43,6 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
             if (count == 0)
                 return string.Empty;
 
-
             var randomIndex = new Random().Next(count);
 
             var randomAssignee = await context.Users
@@ -50,8 +56,6 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
                 return randomAssignee.UserName ?? string.Empty;
 
             return string.Empty;
-
-
         }
 
         else
@@ -59,15 +63,15 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
             return request.Executer = request.UserId;
         }
     }
-
+    
     public async Task<PagedResponse<List<TicketDto>>> FilterAsync(TicketFilterRequest request)
     {
         IQueryable<Ticket> query = context.Tickets
             .AsNoTracking()
             .OrderByDescending(x => x.UpdatedAt);
 
-        
-        if(!string.IsNullOrEmpty(request.Title))
+
+        if (!string.IsNullOrEmpty(request.Title))
         {
             query = query.Where(t => EF.Functions.Like(t.Title, $"%{request.Title}%"));
         }
@@ -82,32 +86,36 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
             query = query.Where(t => t.Status == request.Status);
         }
 
-        if(!string.IsNullOrEmpty(request.Executer))
+        if (!string.IsNullOrEmpty(request.Executer))
         {
             query = query.Where(t => EF.Functions.Like(t.Executer, $"{request.Executer}%"));
         }
 
-        if(request.AssetId != null)
+        if (request.AssetId != null)
         {
             query = query.Where(t => t.AssetId == request.AssetId);
         }
 
-        if(request.DepartmentToExecute != null)
+        if (request.DepartmentToExecute != null)
         {
             query = query.Where(t => t.DepartmentToExecute == request.DepartmentToExecute);
         }
 
-        if(request.DepartmentOwner != null)
+        if (request.DepartmentOwner != null)
         {
             query = query.Where(t => t.DepartmentOwner == request.DepartmentOwner);
         }
-        
 
         var count = await query.CountAsync();
-        var tickets = await query
+        var ticketEntities = await query
             .Skip((request.PageNumber - 1) * request.PageSize)
             .Take(request.PageSize)
-            .Select(ticket => new TicketDto
+            .ToListAsync();
+
+        var tickets = new List<TicketDto>();
+        foreach (var ticket in ticketEntities)
+        {
+            tickets.Add(new TicketDto
             {
                 Id = ticket.Id,
                 UserId = ticket.UserId,
@@ -115,11 +123,11 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
                 Title = ticket.Title,
                 CreatedAt = ticket.CreatedAt,
                 UpdatedAt = ticket.UpdatedAt,
-                DepartmentOwner = ticket.DepartmentOwner,
-                DepartmentToExecute = ticket.DepartmentToExecute,
+                DepartmentOwner = await FindDepartmentName(ticket.DepartmentOwner),
+                DepartmentToExecute = await FindDepartmentName(ticket.DepartmentToExecute),
                 Executer = ticket.Executer ?? string.Empty
-            })
-            .ToListAsync();
+            });
+        }
 
         return new PagedResponse<List<TicketDto>>(
             tickets,
@@ -138,6 +146,7 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
             var ticket = new Ticket
             {
                 UserId = request.UserId,
+                Status = request.Status,
                 Description = request.Description,
                 Title = request.Title,
                 CreatedAt = DateTime.Now,
@@ -194,10 +203,15 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
                 .AsNoTracking()
                 .OrderByDescending(x => x.UpdatedAt);
 
-            var tickets = await query
+            var ticketEntities = await query
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
-                .Select(ticket => new TicketDto
+                .ToListAsync();
+
+            var tickets = new List<TicketDto>();
+            foreach (var ticket in ticketEntities)
+            {
+                tickets.Add(new TicketDto
                 {
                     Id = ticket.Id,
                     UserId = ticket.UserId,
@@ -205,8 +219,11 @@ public class TicketHandler(AppDbContext context) : ITicketHandler
                     Title = ticket.Title,
                     CreatedAt = ticket.CreatedAt,
                     UpdatedAt = ticket.UpdatedAt,
-                })
-                .ToListAsync();
+                    DepartmentOwner = await FindDepartmentName(ticket.DepartmentOwner),
+                    DepartmentToExecute = await FindDepartmentName(ticket.DepartmentToExecute),
+                    Executer = ticket.Executer ?? string.Empty
+                });
+            }
 
             var count = await query.CountAsync();
 

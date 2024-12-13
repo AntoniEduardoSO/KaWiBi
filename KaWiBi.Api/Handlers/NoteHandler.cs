@@ -1,4 +1,5 @@
 using KaWiBi.Api.Data;
+using KaWiBi.Core.Enums;
 using KaWiBi.Core.Handlers;
 using KaWiBi.Core.Models;
 using KaWiBi.Core.Requests.Notes;
@@ -17,33 +18,41 @@ public class NoteHandler(AppDbContext context) : INoteHandler
                 UserId = request.UserId,
                 TicketId = request.TicketId,
                 Content = request.Content,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                Status = request.Status
             };
 
             await context.Notes.AddAsync(note);
 
             var ticket = await context.Tickets.FirstOrDefaultAsync(t => t.Id == request.TicketId);
 
-            if (ticket is not null){
+            if (ticket is not null)
+            {
+                if (request.Status == ENoteCategory.Solution)
+                {
+                    if (ticket.Executer != request.UserId)
+                        ticket.Executer = request.UserId;
+
+                    ticket.FinishedAt = note.CreatedAt;
+                    ticket.Status = ETicketStatus.Finished;
+                }
+
                 ticket.UpdatedAt = note.CreatedAt;
-                // context.Entry(ticket).Property(t => t.UpdatedAt).IsModified = true;
             }
             else
                 return new Response<Note>(null, 404, "Ticket não encontrado");
-            
+
 
             await context.SaveChangesAsync();
 
             return new Response<Note>(note, 201, "Comentário criado com sucesso");
         }
-        catch 
+        catch
         {
             // Log de erro (ex)
             return new Response<Note>(null, 500, "Não foi possível criar o comentário");
         }
     }
-
-
     public async Task<Response<Note>> DeleteAsync(DeleteNoteRequest request)
     {
         try
@@ -54,7 +63,7 @@ public class NoteHandler(AppDbContext context) : INoteHandler
 
             if (note is null)
                 return new Response<Note>(null, 404, "Comentario nao encontrado");
-            
+
 
             context.Notes.Remove(note);
             await context.SaveChangesAsync();
@@ -122,18 +131,27 @@ public class NoteHandler(AppDbContext context) : INoteHandler
             if (note == null)
                 return new Response<Note>(null, 404, "Comentario nao encontrado");
 
-
             note.UpdatedAt = DateTime.Now;
             note.Content = request.Content;
+            note.Status = request.Status;
 
             var ticket = await context
                 .Tickets
                 .FirstOrDefaultAsync(x => x.Id == request.TicketId);
 
-            if(ticket is null)
-                return new Response<Note>(null,500, "Nao foi possivel recupar o ticket");
-            
-            ticket.UpdatedAt = DateTime.Now;
+            if (ticket is null)
+                return new Response<Note>(null, 500, "Nao foi possivel recupar o ticket");
+
+            if (request.Status == ENoteCategory.Solution)
+            {
+                if (ticket.Executer != request.UserId)
+                    ticket.Executer = request.UserId;
+
+                ticket.FinishedAt = note.CreatedAt;
+                ticket.Status = ETicketStatus.Finished;
+            }
+
+            ticket.UpdatedAt = (DateTime)note.UpdatedAt;
 
             context.Notes.Update(note);
             await context.SaveChangesAsync();

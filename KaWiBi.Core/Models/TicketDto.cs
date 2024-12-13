@@ -12,9 +12,8 @@ namespace KaWiBi.Core.Models
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public DateTime? FinishedAt { get; set; }
         public DateTime? EstimatedFinishedAt { get; set; }
-        public long DepartmentOwner { get; set; }
-        public long DepartmentToExecute { get; set; }
-        public string Owner { get; set; } = string.Empty;
+        public string DepartmentOwner { get; set; } = null!;
+        public string DepartmentToExecute { get; set; } = null!;
         public string Executer { get; set; } = string.Empty;
     }
 }

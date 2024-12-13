@@ -22,6 +22,10 @@ namespace KaWiBi.Api.Data.Mappings
             .HasColumnType("NVARCHAR")
             .HasMaxLength(160);
 
+            builder.Property(t => t.Status)
+            .IsRequired()
+            .HasColumnType("SMALLINT");
+
             builder.Property(t => t.CreatedAt)
             .IsRequired();
 
